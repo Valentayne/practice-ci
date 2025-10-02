@@ -14,19 +14,20 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                dir('Java') {
-                    sh 'mvn test'
-                }
+    stage('Test') {
+        steps {
+            dir('Java') {
+                sh 'mvn test'
             }
-            post {
-                always {
-                    junit 'Java/target/surefire-reports/*.xml'
-                    archiveArtifacts artifacts: 'Java/artifact/*.jar', fingerprint: true
-                }
         }
+        post {
+            always {
+                junit 'Java/target/surefire-reports/*.xml'
+                archiveArtifacts artifacts: 'Java/target/*.jar', fingerprint: true
+            }
         }
+    }
+
 
     }
 }
