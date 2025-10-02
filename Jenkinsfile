@@ -20,10 +20,11 @@ pipeline {
                     sh 'mvn test'
                 }
             }
-            post {
-                always {
-                    junit 'Java/target/surefire-reports/*.xml' 
-                }
+        }
+        post {
+            always {
+                junit 'Java/target/surefire-reports/*.xml'
+                archiveArtifacts artifacts: 'Java/artifact/*.jar', fingerprint: true
             }
         }
     }
